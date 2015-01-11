@@ -1,0 +1,129 @@
+/**
+ * 
+ */
+package cl.intelidata.main;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Logger;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+/**
+ * @author Fasaldiasn
+ *
+ */
+public class createExcelAttachment {
+
+	 private static final Logger LOGGER = Logger.getLogger(createExcelAttachment.class.getName());
+
+	    public static void main(String[] args) throws IOException {
+	        if (args.length != 2) {
+	            LOGGER.warning("The number of parameters is incorrect: [fileRead] [filter]");
+	            System.out.println("The number of parameters is incorrect: [fileRead] [filter]");
+	            System.exit(0);
+	        }
+	        LOGGER.info("Init process...");
+	        System.out.println("Init process...");  
+	        File fileRead = new File(args[0]);
+	        process(fileRead, args[1]);
+//	        File fileRead = new File("C:/base_ejemplo.xlsx");
+//	        process(fileRead, "MMRivera@entel.cl");
+	    }
+
+	    public static String readCellValue(Cell cell) {
+	        switch (cell.getCellType()) {
+	            case Cell.CELL_TYPE_BLANK:
+	                return "(blank)";
+	            case Cell.CELL_TYPE_BOOLEAN:
+	                return String.valueOf(cell.getBooleanCellValue());
+	            case Cell.CELL_TYPE_ERROR:
+	                return String.valueOf(cell.getErrorCellValue());
+	            case Cell.CELL_TYPE_NUMERIC:
+	                return String.valueOf(cell.getNumericCellValue());
+	            case Cell.CELL_TYPE_STRING:
+	                return cell.getStringCellValue();
+	            default:
+	                return "Unknown type";
+	        }
+	    }
+
+	    public static void createFile(String fileWrite, XSSFWorkbook workbook) throws FileNotFoundException, IOException {
+	    	FileOutputStream out = new FileOutputStream("C:/" + fileWrite + ".xlsx");
+	        try {
+	            workbook.write(out);
+	            out.flush();
+	            LOGGER.info("Excel written successfully");
+	            System.out.println("Excel written successfully");
+	        }finally{
+	        	out.close();
+	        }
+	        
+	    }
+
+	    public static void process(File fileRead, String filter) throws IOException, FileNotFoundException {
+	        try {
+	            int countRows = 1;
+	            FileInputStream file = new FileInputStream(fileRead);
+	            XSSFWorkbook workbook = new XSSFWorkbook(file);
+	            XSSFWorkbook workbook2 = new XSSFWorkbook();
+	            XSSFSheet sheet = workbook.getSheetAt(0);
+	            XSSFSheet sheet2 = workbook2.createSheet();
+
+	            for (int i = 0; i <= sheet.getLastRowNum(); i++) {
+	                Row row = sheet.getRow(i);
+	                if (i == 0) {
+	                    XSSFRow fila = sheet2.createRow(i);
+	                    LOGGER.info("Creating header...");
+	                    System.out.println("Creating header...");
+	                    for (int c = 0; c < 7; c++) {
+	                        XSSFCell cell = fila.createCell(c);
+	                        cell.setCellValue(row.getCell(c).getStringCellValue());
+
+	                        sheet2.autoSizeColumn(c);
+	                    }
+	                    LOGGER.info("Header created successfully");
+	                    System.out.println("Header created successfully");
+	                } else {
+	                    if (i == 1) {
+	                        LOGGER.info("Creating body...");
+	                        System.out.println("Creating body...");
+	                    }
+	                    if (row.getCell(1).getStringCellValue().equalsIgnoreCase(filter)) {
+	                        XSSFRow fila = sheet2.createRow(countRows);
+	                        for (int c = 0; c < 7; c++) {
+	                            XSSFCell cell = fila.createCell(c);
+	                            if (row.getCell(c).getCellType() != Cell.CELL_TYPE_BLANK) {
+	                                row.getCell(c).setCellType(Cell.CELL_TYPE_STRING);
+	                                cell.setCellValue(readCellValue(row.getCell(c)));
+
+	                                sheet2.autoSizeColumn(c);
+	                            }
+	                        }
+	                        countRows++;
+	                    }
+	                }
+	            }
+	            LOGGER.info("Created " + (int) (countRows - 1) + "  rows");
+	            System.out.println("Created " + (int) (countRows - 1) + " rows");
+	            LOGGER.info("Body created successfully");
+	            System.out.println("Body created successfully");
+	            createFile(filter, workbook2);
+	        } catch (Exception ex) {
+	            LOGGER.severe("Exception occur " + ex);
+	            System.out.println("Exception occur: " + ex);
+	        } finally {
+	            LOGGER.info("Finish process");
+	            System.out.println("Finish process");
+	        }
+	    }
+
+}
