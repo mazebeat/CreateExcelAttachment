@@ -9,6 +9,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -48,6 +49,37 @@
 		<url>http://www.intelidata.cl</url>
 	</organization>
 
+	<scm>
+		<connection>scm:svn:https://Desarrollo/svn/desarrollo/trunk/${project.artifactId}</connection>
+		<developerConnection>scm:svn:https://Desarrollo/svn/desarrollo/trunk/${project.artifactId}</developerConnection>
+		<url>scm:svn:https://Desarrollo/svn/desarrollo/trunk/${project.artifactId}</url>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>InteliReleases</id>
+			<name>Internal Releases</name>
+			<url>http://192.168.1.100:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>InteliSnapshots</id>
+			<name>Internal Snapshots</name>
+			<url>http://192.168.1.100:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>InteilRepo</id>
+			<url>http://192.168.1.100:8081/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<autor>DiegoP</autor>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -85,35 +117,4 @@
 			<version>1.7.7</version>
 		</dependency>
 	</dependencies>
-
-	<scm>
-		<connection>scm:svn:https://Desarrollo/svn/desarrollo/trunk/${project.artifactId}</connection>
-		<developerConnection>scm:svn:https://Desarrollo/svn/desarrollo/trunk/${project.artifactId}</developerConnection>
-		<url>scm:svn:https://Desarrollo/svn/desarrollo/trunk/${project.artifactId}</url>
-	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>InteliReleases</id>
-			<name>Internal Releases</name>
-			<url>http://192.168.1.100:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>InteliSnapshots</id>
-			<name>Internal Snapshots</name>
-			<url>http://192.168.1.100:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-	<repositories>
-		<repository>
-			<id>InteilRepo</id>
-			<url>http://192.168.1.100:8081/nexus/content/groups/public</url>
-		</repository>
-	</repositories>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<autor>Diego P</autor>
-	</properties>
 </project>
