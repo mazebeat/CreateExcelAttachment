@@ -60,10 +60,8 @@ public class FileLib {
 	 * @return
 	 */
 	public static String createNameFile(String mailAdmin, String dateProcess) {
-		String[] a = mailAdmin.split("@");
-		String c = a[0].replace("\\.", "_");
-		String b = a[1].replace(".", "_");
-		String name = c.concat("_" + b).concat(dateProcess).toLowerCase();
+		String a = mailAdmin.replaceAll("[@.]", "_");		
+		String name = a.concat(dateProcess).toLowerCase();
 
 		return name;
 	}
