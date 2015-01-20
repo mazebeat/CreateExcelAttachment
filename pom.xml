@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cl.intelidata</groupId>
-	<artifactId>CreateExcelAttachment</artifactId>
+	<artifactId>CreateAllExcelAttachment</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<build>
@@ -43,6 +43,10 @@
 		</plugins>
 	</build>
 
+	<organization>
+		<name>Intelidata S.A</name>
+		<url>http://www.intelidata.cl</url>
+	</organization>
 
 	<dependencies>
 		<dependency>
@@ -82,11 +86,6 @@
 		</dependency>
 	</dependencies>
 
-	<organization>
-		<name>Intelidata S.A</name>
-		<url>http://www.intelidata.cl</url>
-	</organization>
-
 	<scm>
 		<connection>scm:svn:https://Desarrollo/svn/desarrollo/trunk/${project.artifactId}</connection>
 		<developerConnection>scm:svn:https://Desarrollo/svn/desarrollo/trunk/${project.artifactId}</developerConnection>
@@ -112,9 +111,9 @@
 			<url>http://192.168.1.100:8081/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<autor>Diego P</autor>
 	</properties>
-
 </project>
