@@ -16,8 +16,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class FileLib {
 
-	private static String SRCEXCEL;
-	private static String SRCZIP;
+	private static String	SRCEXCEL;
+	private static String	SRCZIP;
 
 	/**
 	 * 
@@ -61,8 +61,9 @@ public class FileLib {
 	 */
 	public static String createNameFile(String mailAdmin, String dateProcess) {
 		String[] a = mailAdmin.split("@");
-		String[] b = a[1].split("\\.");
-		String name = a[0].concat("_" + b[0] + "_").concat(dateProcess);
+		String c = a[0].replace("\\.", "_");
+		String b = a[1].replace(".", "_");
+		String name = c.concat("_" + b).concat(dateProcess).toLowerCase();
 
 		return name;
 	}
