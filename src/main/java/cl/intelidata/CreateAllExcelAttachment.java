@@ -39,18 +39,17 @@ public class CreateAllExcelAttachment {
 	 */
 	public static void main(String[] args) throws IOException {
 		// Valida la cantidad de argumentos de entrada
-		// if (args.length != 2) {
-		// StringLib.generateWarning("The number of parameters is incorrect: [fileToRead] [srcDestiny]");
-		// System.exit(0);
-		// }
+		if (args.length != 2) {
+			StringLib
+					.generateWarning("The number of parameters is incorrect: [fileToRead] [srcDestiny]");
+			System.exit(0);
+		}
 
 		// Seteamos las rutas a las carpetas correspondientes
-		// FileLib.setSRCEXCEL(args[1]); // "C:/CreateAttachment/Excel"
-		FileLib.setSRCEXCEL("C:/CreateAttachment/Excel"); // "C:/CreateAttachment/Excel"
+		FileLib.setSRCEXCEL(args[1]); // "C:/CreateAttachment/Excel"
 
 		// Se captura el archivo de entrada
-		// File fileRead = new File(args[0]); // "C:/base_ejemplo.xlsx"
-		File fileRead = new File("C:/correo20150119.xlsx"); // "C:/base_ejemplo.xlsx"
+		File fileRead = new File(args[0]); // "C:/base_ejemplo.xlsx"
 
 		// Se procesa el archivo matriz
 		StringLib.generateInfo("Init process...");
